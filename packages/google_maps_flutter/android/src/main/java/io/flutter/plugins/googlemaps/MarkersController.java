@@ -7,7 +7,9 @@ package io.flutter.plugins.googlemaps;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.LatLng;
 import io.flutter.plugin.common.MethodChannel;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +75,17 @@ class MarkersController {
       return markerController.consumeTapEvents();
     }
     return false;
+  }
+
+  void onMarkerPositionUpdate(String googleMarkerId, LatLng newPosition) {
+    final Map<String, Object> arguments = new HashMap<>(2);
+    final ArrayList<Object> position = new ArrayList<Object>();
+    position.add(newPosition.latitude);
+    position.add(newPosition.longitude);
+    String markerId = googleMapsMarkerIdToDartMarkerId.get(googleMarkerId);
+    arguments.put("position", position);
+    arguments.put("marker", markerId);
+    methodChannel.invokeMethod("marker#onPositionUpdate", arguments);
   }
 
   void onInfoWindowTap(String googleMarkerId) {

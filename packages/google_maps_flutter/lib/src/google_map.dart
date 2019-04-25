@@ -237,6 +237,15 @@ class _GoogleMapState extends State<GoogleMap> {
     _markers[markerId].onTap();
   }
 
+  void onMarkerPositionUpdate(String markerIdParam, LatLng position) {
+    assert(markerIdParam != null);
+    final MarkerId markerId = MarkerId(markerIdParam);
+    _markers[markerId] = _markers[markerId].copyWith(
+        positionParam: position
+    );
+    _markers[markerId].onPositionUpdate(position);
+  }
+
   void onPolylineTap(String polylineIdParam) {
     assert(polylineIdParam != null);
     final PolylineId polylineId = PolylineId(polylineIdParam);

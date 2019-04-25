@@ -69,6 +69,11 @@ class GoogleMapController {
       case 'map#onTap':
         _googleMapState.onTap(LatLng._fromJson(call.arguments['position']));
         break;
+      case 'marker#onPositionUpdate':
+        final String markerId = call.arguments['marker'];
+        final LatLng position = LatLng._fromJson(call.arguments['position']);
+        _googleMapState.onMarkerPositionUpdate(markerId, position);
+        break;
       default:
         throw MissingPluginException();
     }
