@@ -40,5 +40,6 @@
 - (void)changeMarkers:(NSArray*)markersToChange;
 - (void)removeMarkerIds:(NSArray*)markerIdsToRemove;
 - (BOOL)onMarkerTap:(NSString*)markerId;
+- (void)onMarkerPositionUpdate:(NSString*)markerId position:(CLLocationCoordinate2D)position;
 - (void)onInfoWindowTap:(NSString*)markerId;
 @end
